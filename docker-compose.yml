@@ -2,6 +2,6 @@ services:
   domining-app:
     build: .
     ports:
-      - "80:80"
+      - "4546:80"
     volumes:
       - .:/app
