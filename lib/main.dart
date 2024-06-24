@@ -3,27 +3,29 @@ import 'package:domining_app/utils/lang.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:localstorage/localstorage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initLocalStorage();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
       useDefaultLoading: false,
-      overlayWidgetBuilder: (_) { 
+      overlayWidgetBuilder: (_) {
         return const Center(
-        child: SpinKitCubeGrid(
-          color: Colors.green,
-          size: 50.0,
-        ),
-      );
+          child: SpinKitCubeGrid(
+            color: Colors.green,
+            size: 50.0,
+          ),
+        );
       },
       overlayColor: Colors.green,
       overlayWholeScreen: false,

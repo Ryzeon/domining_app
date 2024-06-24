@@ -1,12 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'sign_in.request.g.dart';
+
 @JsonSerializable()
 class SignInRequest {
   //  String usernameOrEmail,
   //   String password
-  final String? usernameOrEmail;
-  final String? password;
+  String? usernameOrEmail;
+  String? password;
 
   SignInRequest({
     this.usernameOrEmail,

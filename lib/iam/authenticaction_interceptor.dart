@@ -1,23 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:localstorage/localstorage.dart';
 
 class AuthenticactionInterceptor extends Interceptor {
-AuthenticactionInterceptor();
+  AuthenticactionInterceptor();
 
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
-
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     // create a list of the endpoints where you don't need to pass a token.
     final listOfPaths = <String>[
       '/authentication/sign-up',
       '/authentication/sign-in',
       '/authentication/sign-in',
-      '/ping'
+      '/ping',
       '/files/download',
-      '/files/image'
-      '/files/video'
+      '/files/image',
+      '/files/video',
       '/files/document'
     ];
 
@@ -27,8 +27,11 @@ AuthenticactionInterceptor();
       return handler.next(options);
     }
 
-    // Load your token here and pass to the header
-    var token = '';
+    if (localStorage.getItem('token') == null) {
+      return handler.next(options);
+    }
+
+    var token = localStorage.getItem('token');
     options.headers.addAll({'Authorization': token});
     return handler.next(options);
   }

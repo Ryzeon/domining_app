@@ -1,4 +1,6 @@
+import 'package:domining_app/iam/authentication.service.dart';
 import 'package:domining_app/layout/base_layout.dart';
+import 'package:domining_app/model/iam/request/sign_in.request.dart';
 import 'package:domining_app/screen/sign_up/sign_up_screen.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
 import 'package:domining_app/shared/widgets/resources/colors.dart';
@@ -8,6 +10,7 @@ import 'package:domining_app/utils/provider/provider.dart';
 import 'package:domining_app/utils/validator/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,13 +22,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
 
+  final SignInRequest request = SignInRequest();
+
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
       title: 'Login',
       dis: 'Welcome to domining hub, please login to continue',
       fields: Container(
-         decoration: BoxDecoration(
+        decoration: BoxDecoration(
             color: AppColors.second, borderRadius: BorderRadius.circular(30)),
         padding: const EdgeInsets.all(20),
         child: Form(
@@ -35,10 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppTextFields(
-                  hint: 'Username',
+                  hint: 'Username or Email',
                   validator: (name) {
                     return AppValidator.requiredField(name ?? '');
                   },
+                  onChanged: (p0) => request.usernameOrEmail = p0,
                 ),
                 freev(),
                 AppPassFields(
@@ -47,14 +53,50 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 freev(v: 10),
-                buttons(
-                    text: 'Login',
-                    color: Colors.green,
-                    onTap: () {
-                      if (key.currentState!.validate()) {
-                        //go to Home page
-                      }
-                    }),
+                FutureBuilder(
+                  future: Authentication.checkServer(),
+                  builder: (context, snap) {
+                    if (snap.hasError) {
+                      return const Text('Error');
+                    } else if (snap.connectionState == ConnectionState.done) {
+                      return buttons(
+                          text: 'Login',
+                          color: Colors.green,
+                          onTap: () {
+                            if (key.currentState!.validate()) {
+                              try {
+                                Authentication.signIn(request).then(
+                                  (value) {
+                                    // en un thread principal
+                                    // navigatePop(context);
+                                    toastification.show(
+                                        context: context,
+                                        primaryColor: Colors.green,
+                                        title: const Text(
+                                            'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
+                                        autoCloseDuration:
+                                            const Duration(seconds: 5));
+                                  },
+                                );
+                              } catch (e) {
+                                String errorMessage =
+                                    "Check your credentials and try again";
+                                toastification.show(
+                                  context: context,
+                                  primaryColor: Colors.red,
+                                  title: Text(
+                                      errorMessage), // Mostrar el mensaje de error en el toast
+                                  autoCloseDuration: const Duration(seconds: 3),
+                                );
+                              }
+                            }
+                          });
+                    }
+                    return const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(AppColors.primary),
+                    );
+                  },
+                ),
                 buttons(
                     text: 'SignUp',
                     color: AppColors.black,
@@ -66,51 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               child: const SignUpScreen()));
                     }),
-                freev(),
-                // FutureBuilder(
-                //   future: Authentication.fireBaseInit(),
-                //   builder: (context, snap) {
-                //     if (snap.hasError) {
-                //       return Text('Error while initializing firebase');
-                //     } else if (snap.connectionState == ConnectionState.done) {
-                //       return InkWell(
-                //         onTap: () async {
-                //           setState(() {
-                //             isSignIn = true;
-                //           });
-                //           User? user = await Authentication.signInWithGoogle(
-                //               context: context);
-                //           setState(() {
-                //             isSignIn = false;
-                //           });
-                //           if (user != null) {
-                //             Navigator.pushReplacement(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) => UserHome(user: user)));
-                //           }
-                //         },
-                //         child: Container(
-                //           height: 35,
-                //           decoration: BoxDecoration(
-                //               color: AppColors.primary,
-                //               borderRadius: BorderRadius.circular(30)),
-                //           child: Center(
-                //             child: Text(
-                //               'Sign In With Google',
-                //               style: AppStyles.regular(
-                //                 color: AppColors.white,
-                //               ),
-                //             ),
-                //           ),
-                //         ),
-                //       );
-                //     }
-                //     return CircularProgressIndicator(
-                //       valueColor: const AlwaysStoppedAnimation(Colors.orange),
-                //     );
-                //   },
-                // ),
+                freev(v: 10),
               ],
             ),
           ),
