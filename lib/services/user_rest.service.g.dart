@@ -32,7 +32,7 @@ class _UserRestServer implements UserRestServer {
     )
             .compose(
               _dio.options,
-              '/user',
+              '/user/${id}',
               queryParameters: queryParameters,
               data: _data,
             )

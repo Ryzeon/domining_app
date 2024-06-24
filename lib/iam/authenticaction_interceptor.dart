@@ -30,9 +30,9 @@ class AuthenticactionInterceptor extends Interceptor {
     if (localStorage.getItem('token') == null) {
       return handler.next(options);
     }
-
     var token = localStorage.getItem('token');
-    options.headers.addAll({'Authorization': token});
+    var authToken = 'Bearer $token';
+    options.headers.addAll({'Authorization': authToken});
     return handler.next(options);
   }
 

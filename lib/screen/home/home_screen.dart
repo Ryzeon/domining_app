@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
       // app bar, with name Domiing hub, and avatar in the  right
       leading: Container(
         padding: const EdgeInsets.all(10),
-        child: Row(
+        child: Column(
           children: [
             const Text('Domiing hub'),
             const Spacer(),

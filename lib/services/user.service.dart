@@ -14,11 +14,9 @@ class UserServicer {
     }
   }
 
-  static setLocalUser(String id) {
-    getById(id).then((user) {
-      currentUser = user;
-      print('User loaded');
-      print(currentUser);
-    });
+  static setLocalUser(String id) async {
+    User currentUser = await getById(id);
+    UserServicer.currentUser = currentUser;
+    print('UserServicer.currentUser: ${UserServicer.currentUser!.toJson()}');
   }
 }

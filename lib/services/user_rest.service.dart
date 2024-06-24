@@ -10,6 +10,6 @@ abstract class UserRestServer {
   factory UserRestServer(Dio dio, {String baseUrl}) = _UserRestServer;
 
 
-  @GET('/user')
+  @GET('/user/{id}')
   Future<User> getById(@Path('id') String id);
 }

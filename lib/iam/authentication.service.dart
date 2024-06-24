@@ -40,7 +40,7 @@ class Authentication {
     username = response.username!;
     id = response.id!;
     email = response.email!;
-
+    
     UserServicer.setLocalUser(response.id!);
   }
 
