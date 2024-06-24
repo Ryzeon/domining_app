@@ -3,6 +3,7 @@ import 'package:domining_app/model/iam/request/sign_in.request.dart';
 import 'package:domining_app/model/iam/request/sign_in.response.dart';
 import 'package:domining_app/model/iam/request/sign_up.request.dart';
 import 'package:domining_app/model/iam/request/sign_up.response.dart';
+import 'package:domining_app/services/user.service.dart';
 import 'package:domining_app/utils/request.dart';
 import 'package:localstorage/localstorage.dart';
 
@@ -39,6 +40,8 @@ class Authentication {
     username = response.username!;
     id = response.id!;
     email = response.email!;
+
+    UserServicer.setLocalUser(response.id!);
   }
 
   static signOut() {

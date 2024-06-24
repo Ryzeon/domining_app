@@ -1,6 +1,7 @@
 import 'package:domining_app/iam/authentication.service.dart';
 import 'package:domining_app/layout/base_layout.dart';
 import 'package:domining_app/model/iam/request/sign_in.request.dart';
+import 'package:domining_app/screen/home/home_screen.dart';
 import 'package:domining_app/screen/sign_up/sign_up_screen.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
 import 'package:domining_app/shared/widgets/resources/colors.dart';
@@ -51,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   validator: (pass) {
                     return AppValidator.passFieldValidator(pass ?? '');
                   },
+                  onChanged: (p0) => request.password = p0,
                 ),
                 freev(v: 10),
                 FutureBuilder(
@@ -69,6 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   (value) {
                                     // en un thread principal
                                     // navigatePop(context);
+                                    navigatePush(context,
+                                        secondPage: ChangeNotifierProvider(
+                                            create: (context) {
+                                              return AppProvider();
+                                            },
+                                            child: const HomeScreen()));
                                     toastification.show(
                                         context: context,
                                         primaryColor: Colors.green,
@@ -76,6 +84,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                             'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
                                         autoCloseDuration:
                                             const Duration(seconds: 5));
+                                  },
+                                ).onError(
+                                  (error, stackTrace) {
+                                    String errorMessage =
+                                        "Check your credentials and try again";
+                                    toastification.show(
+                                      context: context,
+                                      primaryColor: Colors.red,
+                                      title: Text(
+                                          errorMessage), // Mostrar el mensaje de error en el toast
+                                      autoCloseDuration:
+                                          const Duration(seconds: 3),
+                                    );
                                   },
                                 );
                               } catch (e) {
