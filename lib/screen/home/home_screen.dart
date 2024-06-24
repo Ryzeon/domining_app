@@ -1,4 +1,6 @@
 import 'package:domining_app/layout/base_layout.dart';
+import 'package:domining_app/services/user.service.dart';
+import 'package:domining_app/shared/widgets/resources/colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,26 +8,31 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      // app bar, with name Domiing hub, and avatar in the  right
-      leading: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const Text('Domiing hub'),
-            const Spacer(),
-            CircleAvatar(
-              radius: 20,
-              // backgroundImage: const AssetImage('assets/images/avatar.png'),
-            ),
-          ],
-        ),
-      
+    return Scaffold(
+      appBar: AppBar(
+        // ICON PERSON IN THE RIGHT CORNET BUT BEFORE ICONM, A TEXT LIKE [ICON] PEPE
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            onPressed: () {},
+          ),
+          // suscribe to the user service
+          // UserServicer.currentUser != null
+          //     ? Text(UserServicer.currentUser!.username!)
+              // : const Text('N/A'),
+          const SizedBox(
+            width: 5,
+          )
+        ],
+        // remove back button
+        automaticallyImplyLeading: false,
       ),
-        fields: Column(
-      children: [
-        const Text('Home Screen'),
-      ],
-    ));
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [],
+        ),
+      ),
+    );
   }
 }

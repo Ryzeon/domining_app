@@ -3,7 +3,8 @@ import 'package:domining_app/services/user_rest.service.dart';
 import 'package:domining_app/utils/request.dart';
 
 class UserServicer {
-  static User? currentUser;
+
+  // static var currentUser = 
 
   static Future<User> getById(String id) async {
     try {
@@ -16,7 +17,7 @@ class UserServicer {
 
   static setLocalUser(String id) async {
     User currentUser = await getById(id);
-    UserServicer.currentUser = currentUser;
-    print('UserServicer.currentUser: ${UserServicer.currentUser!.toJson()}');
+    // UserServicer.currentUser = currentUser;
+    // print('UserServicer.currentUser: ${UserServicer.currentUser!.toJson()}');
   }
 }
