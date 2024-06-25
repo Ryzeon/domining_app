@@ -43,6 +43,7 @@ dependencies:
   json_annotation: ^4.8.1
   toastification: ^2.0.0
   localstorage: ^5.0.0
+  file_picker: ^8.0.5
 
 
 dev_dependencies:

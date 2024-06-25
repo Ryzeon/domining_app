@@ -5,6 +5,6 @@ class AppProvider with ChangeNotifier {
   Widget? widgets;
   changeCurrent(int index) {
     current = index;
-    notifyListeners();
+    // notifyListeners();
   }
 }

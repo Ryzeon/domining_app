@@ -95,7 +95,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     // en un thread principal
                                     navigatePop(context);
                                     toastification.show(
-                                      context: context,
                                       primaryColor: Colors.green,
                                       title: const Text(
                                           "User registered successfully"),
@@ -118,7 +117,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   errorMessage = e.toString();
                                 }
                                 toastification.show(
-                                  context: context,
                                   primaryColor: Colors.red,
                                   title: Text(
                                       errorMessage), // Mostrar el mensaje de error en el toast

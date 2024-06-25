@@ -4,7 +4,7 @@ void navigatePush(
   BuildContext context, {
   required Widget secondPage,
 }) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
+  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
     return secondPage;
   }));
 }

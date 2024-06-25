@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     Authentication.retrieveToken().then((value) {
       if (value) {
+      
         navigatePush(context,
             secondPage: ChangeNotifierProvider(
                 create: (context) {
@@ -38,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: const HomeScreen()));
         toastification.show(
-            context: context,
             primaryColor: Colors.green,
             title: const Text(
                 'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
@@ -99,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                             },
                                             child: const HomeScreen()));
                                     toastification.show(
-                                        context: context,
                                         primaryColor: Colors.green,
                                         closeButtonShowType:
                                             CloseButtonShowType.none,
@@ -113,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     String errorMessage =
                                         "Check your credentials and try again";
                                     toastification.show(
-                                      context: context,
                                       primaryColor: Colors.red,
                                       title: Text(
                                           errorMessage), // Mostrar el mensaje de error en el toast
@@ -126,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 String errorMessage =
                                     "Check your credentials and try again";
                                 toastification.show(
-                                  context: context,
                                   primaryColor: Colors.red,
                                   title: Text(
                                       errorMessage), // Mostrar el mensaje de error en el toast
