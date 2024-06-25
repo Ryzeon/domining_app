@@ -1,6 +1,9 @@
+import 'package:domining_app/iam/authentication.service.dart';
 import 'package:domining_app/model/post/post.dart';
+import 'package:domining_app/screen/login/login_screen.dart';
 import 'package:domining_app/services/post_rest.service.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
+import 'package:domining_app/utils/methods.dart';
 import 'package:domining_app/utils/request.dart';
 import 'package:domining_app/widgets/home/post/all_post__view.widget.dart';
 import 'package:domining_app/widgets/home/post/create_post_widget.dart';
@@ -38,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
           IconButton(
             icon: const Icon(Icons.person),
-            onPressed: () {},
+            onPressed: () {
+              logout();
+            },
           ),
           const SizedBox(width: 5),
         ],
@@ -69,6 +74,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void updateLocal() {
     setState(() {});
     getAllPost();
+  }
+
+  void logout() {
+    Authentication.signOut();
+    navigatePush(context, secondPage: const LoginScreen());
   }
 
   getAllPost() {
