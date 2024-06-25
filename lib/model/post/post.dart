@@ -1,13 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post.g.dart';
+
 @JsonSerializable()
 class Post {
   final String? id;
   final String? authorId;
+  final String? authorUsername;
 
   final String? title;
   final String? content;
+  final DateTime? createdAt;
 
   final String? company;
   final List<String>? files;
@@ -16,8 +19,10 @@ class Post {
   Post(
       {this.id,
       this.authorId,
+      this.authorUsername,
       this.title,
       this.content,
+      this.createdAt,
       this.company,
       this.files,
       this.likes});

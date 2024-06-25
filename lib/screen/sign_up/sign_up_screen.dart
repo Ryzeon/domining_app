@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:domining_app/iam/authentication.service.dart';
 import 'package:domining_app/layout/base_layout.dart';
+import 'package:domining_app/screen/login/login_screen.dart';
 import 'package:toastification/toastification.dart';
 import 'package:domining_app/model/iam/request/sign_up.request.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
@@ -93,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Authentication.signUp(request).then(
                                   (value) {
                                     // en un thread principal
-                                    navigatePop(context);
+                                    navigatePush(context, secondPage: const LoginScreen());
                                     toastification.show(
                                       primaryColor: Colors.green,
                                       title: const Text(
@@ -120,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   primaryColor: Colors.red,
                                   title: Text(
                                       errorMessage), // Mostrar el mensaje de error en el toast
-                                  autoCloseDuration: const Duration(seconds: 3),
+                                  autoCloseDuration: const Duration(seconds: 2),
                                 );
                               }
                             }

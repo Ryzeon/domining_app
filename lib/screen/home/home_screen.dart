@@ -1,11 +1,28 @@
+import 'package:domining_app/model/post/post.dart';
+import 'package:domining_app/services/post_rest.service.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
-import 'package:domining_app/widgets/home/create_post_widget.dart';
+import 'package:domining_app/utils/request.dart';
+import 'package:domining_app/widgets/home/post/all_post__view.widget.dart';
+import 'package:domining_app/widgets/home/post/create_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Asegúrate de importar Get
 import 'package:domining_app/services/user.service.dart'; // Importa UserService
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Post> posts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getAllPost();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +45,39 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false, // remove back button
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            CreatePostWidget(),
-            freeh(h: 10),
-          ],
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          // Envuelve el Column en un SingleChildScrollView
+          child: Column(
+            children: [
+              CreatePostWidget(
+                onPostCreated: (_) => {
+                  updateLocal(),
+                },
+              ),
+              freev(v: 10),
+              AllPostViewWidget(
+                posts: posts,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void updateLocal() {
+    setState(() {});
+    getAllPost();
+  }
+
+  getAllPost() {
+    var postService = PostRestService(Request().dio);
+    postService.getAll(0, 20).then((value) {
+      List<Post> posts = value.posts!;
+      setState(() {
+        this.posts = posts.reversed.toList();
+      });
+    });
   }
 }

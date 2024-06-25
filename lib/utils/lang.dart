@@ -22,4 +22,8 @@ enum Lang {
   static const  Color secondaryColor =  Color(0xFF31363f);
   static const  Color accentColor =  Color(0xFF76ABAE);
   static const  Color textColor =  Color(0xFFEEEEEE);
+
+  static String getNiceServer() {
+    return Lang.prod.getBool() ? Lang.backendUrl.getString() : Lang.localUrl.getString();
+  }
 }

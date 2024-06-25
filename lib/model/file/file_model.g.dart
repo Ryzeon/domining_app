@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'file.dart';
+part of 'file_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-File _$FileFromJson(Map<String, dynamic> json) => File(
+FileModel _$FileModelFromJson(Map<String, dynamic> json) => FileModel(
       name: json['name'] as String?,
       id: json['id'] as String?,
       downloadUrl: json['downloadUrl'] as String?,
@@ -14,7 +14,7 @@ File _$FileFromJson(Map<String, dynamic> json) => File(
       niceFileSize: json['niceFileSize'] as String?,
     );
 
-Map<String, dynamic> _$FileToJson(File instance) => <String, dynamic>{
+Map<String, dynamic> _$FileModelToJson(FileModel instance) => <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
       'downloadUrl': instance.downloadUrl,

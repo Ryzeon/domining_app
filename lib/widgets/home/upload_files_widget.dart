@@ -2,7 +2,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class UploadFilesWidget extends StatelessWidget {
-  const UploadFilesWidget({super.key});
+  final Function(FilePickerResult file) onFileAdded;
+  const UploadFilesWidget({super.key, required this.onFileAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,7 @@ class UploadFilesWidget extends StatelessWidget {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      result.files.forEach((file) {
-        print(file.name);
-      });
+      onFileAdded(result);
     } else {
       // User canceled the picker
     }

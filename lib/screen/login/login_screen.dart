@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             title: const Text(
                 'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
             closeButtonShowType: CloseButtonShowType.none,
-            autoCloseDuration: const Duration(seconds: 3));
+            autoCloseDuration: const Duration(seconds: 2));
       }
     });
   }
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         title: const Text(
                                             'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
                                         autoCloseDuration:
-                                            const Duration(seconds: 5));
+                                            const Duration(seconds: 2));
                                   },
                                 ).onError(
                                   (error, stackTrace) {
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       title: Text(
                                           errorMessage), // Mostrar el mensaje de error en el toast
                                       autoCloseDuration:
-                                          const Duration(seconds: 3),
+                                          const Duration(seconds: 2),
                                     );
                                   },
                                 );
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   primaryColor: Colors.red,
                                   title: Text(
                                       errorMessage), // Mostrar el mensaje de error en el toast
-                                  autoCloseDuration: const Duration(seconds: 3),
+                                  autoCloseDuration: const Duration(seconds: 2),
                                 );
                               }
                             }
