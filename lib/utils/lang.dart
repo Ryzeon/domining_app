@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 enum Lang {
-  prod(false),
+  prod(true),
+  // xd
   localUrl("http://localhost:8080/api/v1"),
   backendUrl("https://domining-api.ryzeon.me/api/v1"),
   ;
