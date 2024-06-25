@@ -1,3 +1,5 @@
+import 'package:domining_app/shared/widgets/items/widgets.dart';
+import 'package:domining_app/widgets/home/create_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Asegúrate de importar Get
 import 'package:domining_app/services/user.service.dart'; // Importa UserService
@@ -11,12 +13,12 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           Obx(() => Text(
-            // Comprueba si username no es null y no está vacío, de lo contrario muestra 'N/A'
-            UserService.currentUser.value.username?.isNotEmpty == true
-                ? UserService.currentUser.value.username!
-                : 'N/A', // Muestra el nombre de usuario o 'N/A'
-            style: const TextStyle(color: Colors.white), // Estilo opcional
-          )),
+                // Comprueba si username no es null y no está vacío, de lo contrario muestra 'N/A'
+                UserService.currentUser.value.username?.isNotEmpty == true
+                    ? UserService.currentUser.value.username!
+                    : 'N/A', // Muestra el nombre de usuario o 'N/A'
+                style: const TextStyle(color: Colors.white), // Estilo opcional
+              )),
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {},
@@ -26,9 +28,12 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false, // remove back button
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
-          children: [],
+          children: [
+            CreatePostWidget(),
+            freeh(h: 10),
+          ],
         ),
       ),
     );

@@ -25,6 +25,29 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final SignInRequest request = SignInRequest();
 
+  // on init
+  @override
+  void initState() {
+    super.initState();
+    Authentication.retrieveToken().then((value) {
+      if (value) {
+        navigatePush(context,
+            secondPage: ChangeNotifierProvider(
+                create: (context) {
+                  return AppProvider();
+                },
+                child: const HomeScreen()));
+        toastification.show(
+            context: context,
+            primaryColor: Colors.green,
+            title: const Text(
+                'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
+            closeButtonShowType: CloseButtonShowType.none,
+            autoCloseDuration: const Duration(seconds: 3));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
@@ -69,8 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               try {
                                 Authentication.signIn(request).then(
                                   (value) {
-                                    // en un thread principal
-                                    // navigatePop(context);
                                     navigatePush(context,
                                         secondPage: ChangeNotifierProvider(
                                             create: (context) {
@@ -80,6 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     toastification.show(
                                         context: context,
                                         primaryColor: Colors.green,
+                                        closeButtonShowType:
+                                            CloseButtonShowType.none,
                                         title: const Text(
                                             'Welcome to Domining Hub'), // Mostrar el mensaje de éxito en el toast
                                         autoCloseDuration:

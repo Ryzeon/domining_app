@@ -17,4 +17,7 @@ abstract class AuthenticationRestService {
 
   @POST('/authentication/sign-up')
   Future<SignUpResponse> signUp({@Body() required  SignUpRequest request});
+
+  @POST('/authentication/refresh-token/{token}')
+  Future<SignInResponse> refreshToken(@Path('token') String token);
 }

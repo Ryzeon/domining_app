@@ -29,9 +29,9 @@ class UserService {
     try {
       final user = await getById(id);
       currentUser.value = user;
-      print('User: ${currentUser.value}');
     } catch (e) {
       // rethrow;
+    
     }
   }
 }

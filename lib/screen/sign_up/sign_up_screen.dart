@@ -100,7 +100,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       title: const Text(
                                           "User registered successfully"),
                                       autoCloseDuration:
-                                          const Duration(seconds: 2)
+                                          const Duration(seconds: 2),
+                                      closeButtonShowType:
+                                          CloseButtonShowType.none,
                                     );
                                   },
                                 );

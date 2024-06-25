@@ -6,6 +6,7 @@ import 'package:domining_app/model/iam/request/sign_up.response.dart';
 import 'package:domining_app/services/user.service.dart';
 import 'package:domining_app/utils/request.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:get/get.dart';
 
 class Authentication {
   static Future<bool> checkServer() async {
@@ -27,29 +28,41 @@ class Authentication {
     }
   }
 
-  static String username = '';
-  static String id = '';
-  static String email = '';
+  static Future<bool> retrieveToken() async {
+    var token = localStorage.getItem('token');
+    if (token != null) {
+      try {
+        var response = await AuthenticationRestService(Request().dio).refreshToken(token);
+        _save(response);
+      } catch (e) {
+        signOut();
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  static var username = ''.obs;
+  static var id = ''.obs;
+  static var email = ''.obs;
 
   static _save(SignInResponse response) {
     localStorage.setItem('token', response.token!);
-    localStorage.setItem('username', response.username!);
-    localStorage.setItem('id', response.id!);
-    localStorage.setItem('email', response.email!);
 
-    username = response.username!;
-    id = response.id!;
-    email = response.email!;
-    
+    username.value = response.username!;
+    id.value = response.id!;
+    email.value = response.email!;
+
     UserService.setLocalUser(response.id!);
   }
 
   static signOut() {
     localStorage.clear();
 
-    username = '';
-    id = '';
-    email = '';
+    username.value = '';
+    id.value = '';
+    email.value = '';
   }
 
   static Future<SignInResponse> signIn(SignInRequest request) async {
