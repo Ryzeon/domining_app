@@ -1,6 +1,7 @@
 services:
   domining-app:
     build: .
+    image: ryzeon/domining-app:latest
     ports:
       - "4546:80"
     volumes:
