@@ -41,7 +41,7 @@ class Authentication {
     id = response.id!;
     email = response.email!;
     
-    UserServicer.setLocalUser(response.id!);
+    UserService.setLocalUser(response.id!);
   }
 
   static signOut() {

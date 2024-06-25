@@ -1,7 +1,6 @@
-import 'package:domining_app/layout/base_layout.dart';
-import 'package:domining_app/services/user.service.dart';
-import 'package:domining_app/shared/widgets/resources/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart'; // Asegúrate de importar Get
+import 'package:domining_app/services/user.service.dart'; // Importa UserService
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,22 +9,21 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // ICON PERSON IN THE RIGHT CORNET BUT BEFORE ICONM, A TEXT LIKE [ICON] PEPE
         actions: [
+          Obx(() => Text(
+            // Comprueba si username no es null y no está vacío, de lo contrario muestra 'N/A'
+            UserService.currentUser.value.username?.isNotEmpty == true
+                ? UserService.currentUser.value.username!
+                : 'N/A', // Muestra el nombre de usuario o 'N/A'
+            style: const TextStyle(color: Colors.white), // Estilo opcional
+          )),
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {},
           ),
-          // suscribe to the user service
-          // UserServicer.currentUser != null
-          //     ? Text(UserServicer.currentUser!.username!)
-              // : const Text('N/A'),
-          const SizedBox(
-            width: 5,
-          )
+          const SizedBox(width: 5),
         ],
-        // remove back button
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // remove back button
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
