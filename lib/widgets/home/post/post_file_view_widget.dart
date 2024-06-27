@@ -23,8 +23,8 @@ class _PostFileViewWidgetState extends State<PostFileViewWidget> {
         child: Container(
           // JUST RENDER A SMALL IMG, BTW WHEN CLICK SEND TO A NEW PAGE
           padding: const EdgeInsets.all(5),
-          width: 250,
-          height: 250,
+          width: 400,
+          height: 400,
 
           decoration: BoxDecoration(
             color: Colors.transparent,

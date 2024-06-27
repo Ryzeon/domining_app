@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:domining_app/model/post/like_post_request.dart';
 import 'package:domining_app/model/post/post.dart';
 import 'package:domining_app/model/post/post_create.dart';
 import 'package:domining_app/model/post/post_pageable.dart';
@@ -16,8 +17,8 @@ abstract class PostRestService {
   @POST('/post')
   Future<Post> create(@Body() PostCreate request);
 
-  @POST('/post/{id}/like')
-  Future<void> like(@Path('id') String id);
+  @POST('/post/like')
+  Future<void> like(@Body() LikePostRequest request);
 
   @DELETE('/post/{id}')
   Future<void> delete(@Path('id') String id);

@@ -63,6 +63,8 @@ class Authentication {
     username.value = '';
     id.value = '';
     email.value = '';
+
+    UserService.currentUser.value = UserService.defaultUser;
   }
 
   static Future<SignInResponse> signIn(SignInRequest request) async {

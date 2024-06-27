@@ -25,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getAllPost();
+    UserService.currentUser.listen((_) {
+      updateLocal();
+    });
   }
 
   @override
@@ -63,6 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
               freev(v: 10),
               AllPostViewWidget(
                 posts: posts,
+                refresh: () {
+                  updateLocal();
+                },
               ),
             ],
           ),

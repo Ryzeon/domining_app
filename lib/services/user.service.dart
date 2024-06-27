@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 
 class UserService {
 
-  static var currentUser = User(
+  static var currentUser = defaultUser.obs;
+
+  static var defaultUser = User(
     id: '1',
     username: '',
     email: 'N/A',
@@ -14,7 +16,7 @@ class UserService {
     position: '',
     company: '',
     about: '',
-  ).obs;
+  );
 
   static Future<User> getById(String id) async {
     try {

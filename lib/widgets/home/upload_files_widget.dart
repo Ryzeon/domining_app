@@ -7,7 +7,6 @@ class UploadFilesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Upload files widget minimalist style
     return Container(
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(

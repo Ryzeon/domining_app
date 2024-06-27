@@ -74,11 +74,12 @@ class _PostRestService implements PostRestService {
   }
 
   @override
-  Future<void> like(String id) async {
+  Future<void> like(LikePostRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(request.toJson());
     await _dio.fetch<void>(_setStreamType<void>(Options(
       method: 'POST',
       headers: _headers,
@@ -86,7 +87,7 @@ class _PostRestService implements PostRestService {
     )
         .compose(
           _dio.options,
-          '/post/${id}/like',
+          '/post/like',
           queryParameters: queryParameters,
           data: _data,
         )
