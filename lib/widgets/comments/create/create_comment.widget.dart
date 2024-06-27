@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
 class CreateCommentWidget extends StatefulWidget {
-
   final String targetId;
   final bool isComment;
   final VoidCallback? update;
 
   const CreateCommentWidget(
-      {super.key, required this.targetId, required this.isComment, this.update});
+      {super.key,
+      required this.targetId,
+      required this.isComment,
+      this.update});
 
   @override
   State<CreateCommentWidget> createState() => _CreateCommentWidgetState();
@@ -41,6 +43,9 @@ class _CreateCommentWidgetState extends State<CreateCommentWidget> {
           Expanded(
             child: TextField(
               controller: _commentController,
+              maxLines: null,
+              scrollPhysics: const AlwaysScrollableScrollPhysics(),
+              keyboardType: TextInputType.multiline,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -72,8 +77,7 @@ class _CreateCommentWidgetState extends State<CreateCommentWidget> {
       if (widget.update != null) {
         widget.update!();
       }
-    })
-    .catchError((error) {
+    }).catchError((error) {
       toastification.show(
         title: const Text('An error ocurred while creating comment'),
         closeButtonShowType: CloseButtonShowType.none,
