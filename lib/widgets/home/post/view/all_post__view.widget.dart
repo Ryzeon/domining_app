@@ -1,5 +1,5 @@
 import 'package:domining_app/model/post/post.dart';
-import 'package:domining_app/widgets/home/post/post_view.widget.dart';
+import 'package:domining_app/widgets/post/render/post_view.widget.dart';
 import 'package:flutter/material.dart';
 
 class AllPostViewWidget extends StatefulWidget {

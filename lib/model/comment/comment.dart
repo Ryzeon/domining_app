@@ -6,6 +6,8 @@ class Comment {
   final String? id;
   final String? content;
   final String? userId;
+  final String? username;
+  final String? userFullName;
   final String? postId;
   final String? commentType;
   final bool? subComment;
@@ -15,6 +17,8 @@ class Comment {
       {this.id,
       this.content,
       this.userId,
+      this.username,
+      this.userFullName,
       this.postId,
       this.commentType,
       this.subComment,

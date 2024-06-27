@@ -5,8 +5,8 @@ import 'package:domining_app/services/post_rest.service.dart';
 import 'package:domining_app/shared/widgets/items/widgets.dart';
 import 'package:domining_app/utils/methods.dart';
 import 'package:domining_app/utils/request.dart';
-import 'package:domining_app/widgets/home/post/all_post__view.widget.dart';
-import 'package:domining_app/widgets/home/post/create_post_widget.dart';
+import 'package:domining_app/widgets/home/post/view/all_post__view.widget.dart';
+import 'package:domining_app/widgets/post/create/create_post_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Asegúrate de importar Get
 import 'package:domining_app/services/user.service.dart'; // Importa UserService

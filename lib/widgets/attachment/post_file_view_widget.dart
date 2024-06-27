@@ -1,4 +1,4 @@
-import 'package:domining_app/widgets/home/post/player/post_video_player.widget.dart';
+import 'package:domining_app/widgets/post/player/post_video_player.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

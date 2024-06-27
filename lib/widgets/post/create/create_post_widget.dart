@@ -6,13 +6,12 @@ import 'package:domining_app/services/post_rest.service.dart';
 import 'package:domining_app/services/user.service.dart';
 import 'package:domining_app/shared/widgets/resources/colors.dart';
 import 'package:domining_app/utils/request.dart';
-import 'package:domining_app/widgets/home/file_view.widget.dart';
-import 'package:domining_app/widgets/home/upload_files_widget.dart';
+import 'package:domining_app/widgets/home/post/view/file_view.widget.dart';
+import 'package:domining_app/widgets/home/post/upload/upload_files_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class CreatePostWidget extends StatefulWidget {
-
   final Function(void) onPostCreated;
 
   const CreatePostWidget({super.key, required this.onPostCreated});
@@ -94,8 +93,6 @@ class _CreatePostWidgetState extends State<CreatePostWidget> {
                   onFileAdded(file),
                 },
               ),
-              const SizedBox(width: 10),
-              // Asegurarse de que el SingleChildScrollView pueda desplazarse horizontalmente
               Expanded(
                 // Asegura que el SingleChildScrollView tenga espacio para expandirse
                 child: SingleChildScrollView(

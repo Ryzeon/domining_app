@@ -43,9 +43,10 @@ class MyApp extends StatelessWidget {
               selectionColor: Lang.secondaryColor,
             ),
           ),
-          title: 'Domining Hub',
-          routes: {'login': (_) => const LoginScreen()},
-          initialRoute: "login",
+          // title: 'Domining Hub',
+          home: const LoginScreen(),
+          // routes: {'login': (_) => const LoginScreen()},
+          // initialRoute: "login",
         ),
       ),
     );

@@ -5,15 +5,29 @@ import 'package:domining_app/services/user.service.dart';
 import 'package:domining_app/shared/widgets/resources/colors.dart';
 import 'package:domining_app/utils/lang.dart';
 import 'package:domining_app/utils/request.dart';
-import 'package:domining_app/widgets/home/post/post_file_view_widget.dart';
+import 'package:domining_app/widgets/attachment/post_file_view_widget.dart';
+import 'package:domining_app/widgets/comments/comment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PostViewWidget extends StatelessWidget {
+class PostViewWidget extends StatefulWidget {
   final Post post;
   final VoidCallback? refresh;
 
   const PostViewWidget({super.key, required this.post, this.refresh});
+
+  @override
+  State<PostViewWidget> createState() => _PostViewWidgetState();
+}
+
+class _PostViewWidgetState extends State<PostViewWidget> {
+  
+  bool comment = false;
+
+  void toggleComment() {
+    comment = !comment;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +61,7 @@ class PostViewWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      post.title!,
+                      widget.post.title!,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -55,7 +69,7 @@ class PostViewWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${post.authorUsername!} - ${getNiceDate()}',
+                    '${widget.post.authorUsername!} - ${getNiceDate()}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -64,15 +78,14 @@ class PostViewWidget extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(post.content!),
+              Text(widget.post.content!),
               const SizedBox(height: 10),
-              if (post.files != null)
+              if (widget.post.files != null)
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    
-                    children: post.files!.map((file) {
+                    children: widget.post.files!.map((file) {
                       var niceFileUrl = Lang.getNiceServer() + file;
                       return Container(
                         margin: const EdgeInsets.only(top: 10, right: 10),
@@ -110,7 +123,9 @@ class PostViewWidget extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.comment),
-                    onPressed: () {},
+                    onPressed: () {
+                      toggleComment();
+                    },
                   ),
                   Expanded(child: Container()),
                   if (canDelete())
@@ -123,6 +138,15 @@ class PostViewWidget extends StatelessWidget {
                     ),
                 ],
               ),
+              // HORIZONTAL LINE WHITE
+              if (comment)  Container(
+                color: AppColors.white,
+                height: 1,
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
+                width: double.infinity,
+              ),
+              if (comment)
+                CommentsWidget(post: widget.post)
             ],
           ),
         ),
@@ -131,27 +155,27 @@ class PostViewWidget extends StatelessWidget {
   }
 
   void deletePost() {
-    PostRestService(Request().dio).delete(post.id!).whenComplete(() {
-      if (refresh != null) {
-        refresh!();
+    PostRestService(Request().dio).delete(widget.post.id!).whenComplete(() {
+      if (widget.refresh != null) {
+        widget.refresh!();
       }
     });
   }
 
   bool canDelete() {
-    return post.authorId == UserService.currentUser.value.id;
+    return widget.post.authorId == UserService.currentUser.value.id;
   }
 
   void toggleLike() {
     bool liked = isLiked();
     LikePostRequest request = LikePostRequest(
-      postId: post.id,
+      postId: widget.post.id,
       userId: UserService.currentUser.value.id,
       like: !liked,
     );
     PostRestService(Request().dio).like(request).whenComplete(() {
-      if (refresh != null) {
-        refresh!();
+      if (widget.refresh != null) {
+        widget.refresh!();
       }
     });
   }
@@ -175,15 +199,15 @@ class PostViewWidget extends StatelessWidget {
 
   bool isLiked() {
     var userId = UserService.currentUser.value.id;
-    return post.likes?.contains(userId) ?? false;
+    return widget.post.likes?.contains(userId) ?? false;
   }
 
   getLikesCount() {
-    return post.likes?.length ?? 0;
+    return widget.post.likes?.length ?? 0;
   }
 
   getNiceDate() {
-    var date = post.createdAt!;
+    var date = widget.post.createdAt!;
     // Format, 12 March 2021, 12:00
     var formatter = DateFormat('d MMMM yyyy, HH:mm');
     return formatter.format(date);
